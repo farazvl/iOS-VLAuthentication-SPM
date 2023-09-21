@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if os(iOS)
 final class VLGoogleAuthenticationClient:VLAuthenticationProtocol, VLAuthLogoutProtocol, VLBeaconEventTriggerProtocol {
     static let sharedInstance:VLGoogleAuthenticationClient = {
         let instance = VLGoogleAuthenticationClient()
@@ -86,3 +87,4 @@ extension VLGoogleAuthenticationClient {
         }
     }
 }
+#endif

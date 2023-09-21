@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+#if os(iOS)
 final class VLFacebookAuthenticationClient:VLAuthenticationProtocol, VLAuthLogoutProtocol, VLBeaconEventTriggerProtocol {
 
     static let sharedInstance:VLFacebookAuthenticationClient = {
@@ -102,3 +103,4 @@ extension VLFacebookAuthenticationClient {
         }
     }
 }
+#endif

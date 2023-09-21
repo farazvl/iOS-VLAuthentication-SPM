@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import VLBeacon
+import VLBeaconLib
 
 public class VLAuthentication {
     

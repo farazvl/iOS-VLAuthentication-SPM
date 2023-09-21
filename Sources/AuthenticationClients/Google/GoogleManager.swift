@@ -6,10 +6,14 @@
 //
 
 import UIKit
+#if os(iOS)
 import GoogleSignIn
+#endif
+
 
 class GoogleManager {
-    
+
+#if os(iOS)
     func loginWithGoogle(googleLoginDone: @escaping ((_ loginStatus: Bool, _ googleAccessToken: String?, _ name: String?, _ email: String?, _ googleID: String?) -> Void), viewController: UIViewController)
     {
         guard let bundleInfoDict = Bundle.main.infoDictionary, let googleClientId = bundleInfoDict["GoogleClientId"] as? String else { return googleLoginDone(false, nil, nil, nil, nil) }
@@ -26,5 +30,7 @@ class GoogleManager {
     func logout() {
         GIDSignIn.sharedInstance.signOut()
     }
+#endif
 }
-    
+
+

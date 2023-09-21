@@ -10,9 +10,7 @@ import Foundation
 protocol VLAPIServiceProtocol {
     func makeAuthenticationRequest(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (VLGraphQLResponse?, VLAuthenticationErrorCode?)
     func makeOTPInitateRequest(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (VLGraphQLResponse?, VLAuthenticationErrorCode?)
-    #if os(tvOS)
     func getDeviceCodeRequest(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (VLActivateCodeObject?, VLAuthenticationErrorCode?)
-    #endif
 }
 
 protocol VLRestAPIService {
@@ -63,20 +61,20 @@ struct VLAPIService:VLAPIServiceProtocol, VLRestAPIService {
             return (nil, .incorrectCredentials)
         }
     }
-	
-	func makeOTPInitateRequestViaRestAPI(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (VLOTPResponseObject?, VLAuthenticationErrorCode?) {
-		let networkResponse = try await NetworkRequest().makeNetworkRequest(requestString: requestString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? requestString, requestHeaders: createRequestHeaders(), requestBody: requestBody, requestType: requestType.rawValue)
-		guard let data = networkResponse.0 else {
-			return (nil, networkResponse.1)
-		}
-		do {
-			let otpResponse = try JSONDecoder().decode(VLOTPResponseObject.self, from: data)
-			return checkForErrorInOTPRequest(otpRequest: otpResponse)
-		}
-		catch {
-			return (nil, .incorrectCredentials)
-		}
-	}
+    
+    func makeOTPInitateRequestViaRestAPI(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (VLOTPResponseObject?, VLAuthenticationErrorCode?) {
+        let networkResponse = try await NetworkRequest().makeNetworkRequest(requestString: requestString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? requestString, requestHeaders: createRequestHeaders(), requestBody: requestBody, requestType: requestType.rawValue)
+        guard let data = networkResponse.0 else {
+            return (nil, networkResponse.1)
+        }
+        do {
+            let otpResponse = try JSONDecoder().decode(VLOTPResponseObject.self, from: data)
+            return checkForErrorInOTPRequest(otpRequest: otpResponse)
+        }
+        catch {
+            return (nil, .incorrectCredentials)
+        }
+    }
     
     func makeDeviceConnectRequest(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (success:Bool, mobileConnectObject:VLMobileConnectObject?) {
         let networkResponse = try await NetworkRequest().makeNetworkRequest(requestString: requestString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? requestString, requestHeaders: createRequestHeaders(), requestBody: requestBody, requestType: requestType.rawValue)
@@ -92,7 +90,6 @@ struct VLAPIService:VLAPIServiceProtocol, VLRestAPIService {
         }
     }
     
-    #if os(tvOS)
     func getDeviceCodeRequest(requestString:String, requestBody:[String:Any]?, requestType:HTTPRequestType) async throws -> (VLActivateCodeObject?, VLAuthenticationErrorCode?) {
         let networkResponse = try await NetworkRequest().makeNetworkRequest(requestString: requestString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? requestString, requestHeaders: createRequestHeaders(), requestBody: requestBody, requestType: requestType.rawValue)
         guard let data = networkResponse.0 else {
@@ -106,7 +103,7 @@ struct VLAPIService:VLAPIServiceProtocol, VLRestAPIService {
             return (nil, .errorInFetchingDeviceCode)
         }
     }
-    #else
+    
     func makeActivateDeviceViaCode(requestString: String, requestBody: [String : Any]?, requestType: HTTPRequestType) async throws -> (VLActivateDeviceResponse?, VLAuthenticationErrorCode?){
         let networkResponse = try await NetworkRequest().makeNetworkRequest(requestString: requestString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? requestString, requestHeaders: createRequestHeaders(), requestBody: requestBody, requestType: requestType.rawValue)
         guard let data = networkResponse.0 else {
@@ -120,7 +117,7 @@ struct VLAPIService:VLAPIServiceProtocol, VLRestAPIService {
             return (nil, .noDataFound)
         }
     }
-    #endif
+    
 }
 
 extension VLAPIService {
@@ -179,7 +176,6 @@ extension VLAPIService {
         return (responseObject, errorCode)
     }
     
-    #if os(iOS)
     private func checkForErrorInDeviceActivation(responseObject:VLActivateDeviceResponse) -> (VLActivateDeviceResponse, VLAuthenticationErrorCode?) {
         guard let code = responseObject.code else {
             if responseObject.errorMessage != nil {
@@ -195,5 +191,5 @@ extension VLAPIService {
         }
         return (responseObject, errorCode)
     }
-    #endif
+    
 }

@@ -5,6 +5,7 @@
 //  Created by Gaurav Vig on 29/11/22.
 //
 
+#if os(iOS)
 import FBSDKLoginKit
 import FBSDKCoreKit
 import UIKit
@@ -64,3 +65,4 @@ class FacebookManager {
         }
     }
 }
+#endif

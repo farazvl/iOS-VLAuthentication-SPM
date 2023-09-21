@@ -20,14 +20,21 @@ let package = Package(
                  branch: "1.0.0"),
         .package(url: "https://github.com/facebook/facebook-ios-sdk.git", 
                  from: "15.1.0"),
-        .package(url: "https://github.com/Google/GoogleSignIn-iOS.git", 
-                 from: "7.0.0"),
+        .package(url: "https://github.com/google/GoogleSignIn-iOS",
+                 branch: "7.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "VLAuthentication"),
+            name: "VLAuthentication",
+            dependencies: [
+                .product(name: "FacebookCore", package: "facebook-ios-sdk", condition: .when(platforms: [.iOS])),
+                .product(name: "FacebookLogin", package: "facebook-ios-sdk", condition: .when(platforms: [.iOS])),
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS", condition: .when(platforms: [.iOS])),
+                .product(name: "VLBeaconLib", package: "VLBeaconSwift"),
+            ]
+        ),
         .testTarget(
             name: "VLAuthenticationTests",
             dependencies: ["VLAuthentication"]),
