@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/facebook/facebook-ios-sdk.git",
       "state" : {
-        "revision" : "7fd8a930a5b2c940a22efafe0e214ed0df671312",
-        "version" : "15.1.0"
+        "revision" : "de74c60d268f51fa1139f8e46e40710baf029f54",
+        "version" : "16.2.0"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/farazvl/VLBeaconSwift.git",
       "state" : {
-        "branch" : "1.0.0",
-        "revision" : "75a7107fdf9117d86023e66b8668ee1f82606cc6"
+        "branch" : "main",
+        "revision" : "0444fe582fe85633fe59adad115a02dbb44eb6a0"
       }
     }
   ],

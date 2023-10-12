@@ -116,6 +116,7 @@ public enum VLAuthenticationErrorCode:String {
     case invalidOTP = "OTP_MISMATCH"
     case crossCountryPhone = "CROSS_COUNTRY_PHONE"
     case appleAuthenticationFailed
+    case appleAuthenticationCancelled
     case mobileSyncFailed
     case mobileConnectApproveFailed
     case mobileConnectRequestExpired = "TV_CONNECT_REQUEST_EXPIRED"

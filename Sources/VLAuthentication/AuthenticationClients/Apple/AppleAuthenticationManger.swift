@@ -38,7 +38,14 @@ extension AppleAuthenticationManager: ASAuthorizationControllerDelegate, ASAutho
 
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        authenticationCallback?(nil, false, .appleAuthenticationFailed)
+        print(error.localizedDescription)
+        print((error as NSError).code)
+        if (error as NSError).code == 1001 {
+            authenticationCallback?(nil, false, .appleAuthenticationCancelled)
+        } else {
+            authenticationCallback?(nil, false, .appleAuthenticationFailed)
+        }
+        
         ///To check
 //        if (error as NSError).code == 1000 || (error as NSError).code == 1001 {
 //            authenticationCallback?(false, nil, nil, nil)
