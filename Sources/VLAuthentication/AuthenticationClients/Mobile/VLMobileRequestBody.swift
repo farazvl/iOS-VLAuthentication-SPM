@@ -26,9 +26,7 @@ extension VLMobileRequestBodyProtocol {
         
         if !requestBodyString.isEmpty {
             requestBodyString.append("::")
-        }
-        requestBodyString.append("\(Date().timeIntervalSince1970)")
-        
+        }        
         //        if !requestBodyString.isEmpty {
         //            requestBodyString.append("::")
         //        }
