@@ -26,11 +26,14 @@ extension VLMobileRequestBodyProtocol {
         
         if !requestBodyString.isEmpty {
             requestBodyString.append("::")
-        }        
+        }
+        requestBodyString.append(VLMobileRequestBody.deviceName)
+        
+        
         //        if !requestBodyString.isEmpty {
         //            requestBodyString.append("::")
         //        }
-        //        requestBodyString.append(VLMobileRequestBody.deviceName)
+                
         
         //        if !requestBodyString.isEmpty {
         //            requestBodyString.append("::")
