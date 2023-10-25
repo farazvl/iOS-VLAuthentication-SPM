@@ -24,10 +24,10 @@ extension VLMobileRequestBodyProtocol {
             requestBodyString.append("\(ip)")
         }
         
-        if !requestBodyString.isEmpty {
-            requestBodyString.append("::")
-        }
-        requestBodyString.append(VLMobileRequestBody.deviceName)
+//        if !requestBodyString.isEmpty {
+//            requestBodyString.append("::")
+//        }
+//        requestBodyString.append(VLMobileRequestBody.deviceName)
         
         
         //        if !requestBodyString.isEmpty {
