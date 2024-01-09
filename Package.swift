@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/farazvl/VLBeaconSwift.git", 
-                 from: "1.0.3"),
+                 branch: "beacon_fix"),
         .package(url: "https://github.com/facebook/facebook-ios-sdk.git",
                  from: "16.2.0"),
         .package(url: "https://github.com/google/GoogleSignIn-iOS",
