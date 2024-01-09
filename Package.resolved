@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/farazvl/VLBeaconSwift.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "0444fe582fe85633fe59adad115a02dbb44eb6a0"
+        "revision" : "905668a894e52c89f6d1d1d65e81bac086bd7e82",
+        "version" : "1.0.3"
       }
     }
   ],

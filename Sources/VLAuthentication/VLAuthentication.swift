@@ -21,7 +21,7 @@ public class VLAuthentication {
         didSet {
             guard let authorizationToken else { return }
             self.siteName = JWTTokenParser().jwtTokenParser(jwtToken: authorizationToken)?.siteName
-            VLBeacon.sharedInstance.authorizationToken = authorizationToken
+            BeaconHelper.getInstance().authorizationToken = authorizationToken
         }
     }
     
@@ -39,7 +39,7 @@ public class VLAuthentication {
     public var debugLogs : Bool? {
         didSet{
             guard let debugLogs else { return }
-            VLBeacon.sharedInstance.debugLogs = debugLogs
+            BeaconHelper.getInstance().debugLogs = debugLogs
         }
     }
     
@@ -65,14 +65,16 @@ public class VLAuthentication {
         self.presentingViewController = presentingViewController
     }
     
-    public func initiateAuthentication(authenticationType:VLAuthenticationType, authenticationObject:VLAuthenticationObject?, authenticationClient:VLAuthenticationClient, presentingViewController:UIViewController?, callback: @escaping ((_ userIdentity:VLUserIdentity?, _ errorCode:VLAuthenticationErrorCode?) -> Void)) {
+    public func initiateAuthentication(authenticationType:VLAuthenticationType, authenticationObject:VLAuthenticationObject?, authenticationClient:VLAuthenticationClient, presentingViewController:UIViewController?, beacon: VLBeacon? , callback: @escaping ((_ userIdentity:VLUserIdentity?, _ errorCode:VLAuthenticationErrorCode?) -> Void)) {
         self.presentingViewController = presentingViewController
+        BeaconHelper.setUpBecaonInstance(sharedBeaconInstance: beacon)
         VLAuthenticationInternal.sharedInstance.initiateAuthentication(authenticationType: authenticationType, authenticationObject: authenticationObject, authenticationClient: authenticationClient, callback: callback)
     }
     
     #if os(tvOS)
-    public func initiateAuthenticateUsingDeviceCode(authenticationType:VLAuthenticationType, activateDeviceUrl:String, authenticationObject:VLAuthenticationObject?, authenticationClient:VLAuthenticationClient, presentingViewController:UIViewController?, callback: @escaping ((_ userIdentity:VLUserIdentity?, _ errorCode:VLAuthenticationErrorCode?) -> Void)) {
+    public func initiateAuthenticateUsingDeviceCode(authenticationType:VLAuthenticationType, activateDeviceUrl:String, authenticationObject:VLAuthenticationObject?, authenticationClient:VLAuthenticationClient, presentingViewController:UIViewController?, beacon: VLBeacon?, callback: @escaping ((_ userIdentity:VLUserIdentity?, _ errorCode:VLAuthenticationErrorCode?) -> Void)) {
         self.presentingViewController = presentingViewController
+        BeaconHelper.setUpBecaonInstance(sharedBeaconInstance: beacon)
         VLAuthenticationInternal.sharedInstance.initiateAuthenticateUsingDeviceCode(authenticationType: authenticationType, activateDeviceUrl: activateDeviceUrl, authenticationObject: authenticationObject, authenticationClient: authenticationClient, callback: callback)
     }
 

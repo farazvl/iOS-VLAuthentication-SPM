@@ -18,6 +18,6 @@ extension VLBeaconEventTriggerProtocol {
 
         let userEventBody = UserBeaconEventStruct(eventName: eventName, source: "VLAuthentication", eventData: AuthenticationPayload(type: type, subType: authType, email: userEmail, phoneNumber: userPhoneNumber, existingUser: existingUser))
 
-            VLBeacon.sharedInstance.triggerBeaconEvent(userEventBody)
+        BeaconHelper.getInstance().triggerBeaconEvent(userEventBody)
     }
 }
